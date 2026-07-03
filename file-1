@@ -1,0 +1,36 @@
+from flask import Flask, jsonify, request
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return """
+    <h1>Welcome to Flask!</h1>
+    <p>Your Flask application is running successfully.</p>
+    """
+
+@app.route("/api/hello", methods=["GET"])
+def hello():
+    name = request.args.get("name", "World")
+    return jsonify({
+        "message": f"Hello, {name}!"
+    })
+
+@app.route("/api/add", methods=["POST"])
+def add_numbers():
+    data = request.get_json()
+
+    if not data:
+        return jsonify({"error": "Please provide JSON data"}), 400
+
+    a = data.get("a", 0)
+    b = data.get("b", 0)
+
+    return jsonify({
+        "a": a,
+        "b": b,
+        "sum": a + b
+    })
+
+if __name__ == "__main__":
+    app.run(debug=True)
