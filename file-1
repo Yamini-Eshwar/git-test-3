@@ -29,7 +29,7 @@ def add_numbers():
     return jsonify({
         "a": a,
         "b": b,
-        "sum": a + b
+        "sum": a - b
     })
 
 if __name__ == "__main__":
